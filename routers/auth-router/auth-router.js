@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-
+const middle = require("../../middleware/auth-middleware");
 const Auth = require("./auth-model");
 
 //Get a list of users
-router.get("/", (req, res) => {
+router.get("/", middle.authWare, (req, res) => {
   Auth.find()
     .then(users => {
       res.status(200).json(users);
